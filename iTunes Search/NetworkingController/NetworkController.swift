@@ -15,6 +15,7 @@ struct NetworkController {
     
     // MARK: - URL to fetch the albums - Endpoint 1
     static func fetchAlbums(with searchTerm: String, completion: @escaping (Result<TopLevelAlbums, NetworkError>) -> Void) {
+        
         guard let baseURL = URL(string: baseURL) else {
             completion(.failure(.invalidURL(baseURL)))
             return
@@ -66,7 +67,7 @@ struct NetworkController {
         urlComponents?.queryItems = [entity, albumID]
         
         guard let finalURL = urlComponents?.url else {
-            completion(.failure(.invalidURL("Error with the Album url")))
+            completion(.failure(.invalidURL("Error with the url")))
             return
         }
         print(finalURL)
@@ -82,8 +83,8 @@ struct NetworkController {
             }
             do {
                 let trackData = try JSONDecoder().decode(TopLevelTracks.self, from: data)
-                let trackArray = trackData.results.filter { $0.kind == "song" }
-                completion(.success(trackArray))
+                let tracksArray = trackData.results.filter { $0.kind == "song" }
+                completion(.success(tracksArray))
             } catch {
                 completion(.failure(.thrownError(error)))
                 return

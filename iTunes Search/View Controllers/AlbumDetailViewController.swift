@@ -80,7 +80,7 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
         guard let tracks = tracks else {return UITableViewCell()}
         let track = tracks[indexPath.row]
         cell.textLabel?.text = track.title
-        
+        cell.detailTextLabel?.text = "\(track.trackTimeMillis)"
         return cell
     }
 }
