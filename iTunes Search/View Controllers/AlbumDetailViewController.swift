@@ -74,31 +74,14 @@ extension AlbumDetailViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tracks?.count ?? 0
     }
-   
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "trackCell", for: indexPath)
         guard let tracks = tracks else {return UITableViewCell()}
         let track = tracks[indexPath.row]
-        var timeMillis = ""
-        if let trackTime = track.trackTimeMillis {
-            timeMillis = String(trackTime)
-        } else {
-            timeMillis = "no time available"
-        }
-        
-        let timeMillisInt = Int(timeMillis)!
-        let timeSec = timeMillisInt / 1000
-        let timeMin = timeSec / 60
-        let remainder = timeSec % 60
-       
-        let finalTime = String("\(timeMin):\(remainder)")
-        
-        
-        
-        
         cell.textLabel?.text = track.title
-        cell.detailTextLabel?.text = finalTime
+        cell.detailTextLabel?.text = track.time
         return cell
     }
 }

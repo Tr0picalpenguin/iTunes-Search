@@ -31,4 +31,25 @@ struct Track: Decodable {
     let albumTitle: String
     let kind: String?
     let trackTimeMillis: Int?
+    
+    var time: String {
+        var timeMillis = ""
+        if let trackTime = self.trackTimeMillis {
+            timeMillis = String(trackTime)
+        } else {
+            timeMillis = "no time available"
+        }
+        
+        let timeMillisInt = Int(timeMillis)!
+        let timeSec = timeMillisInt / 1000
+        let timeMin = timeSec / 60
+        let remainder = timeSec % 60
+        
+        var finalTime = String("\(timeMin):\(remainder)")
+        
+        if remainder < 10 {
+            finalTime = String("\(timeMin):0\(remainder)")
+        }
+        return finalTime
+    }
 }

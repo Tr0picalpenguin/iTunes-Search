@@ -8,7 +8,7 @@
 import UIKit
 
 class AlbumTableViewController: UITableViewController {
-
+    
     @IBOutlet weak var albumSearchBar: UISearchBar!
     
     var albums: [Album] = [] {
@@ -19,32 +19,32 @@ class AlbumTableViewController: UITableViewController {
         }
     }
     
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         albumSearchBar.delegate = self
-  
+        
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return albums.count
     }
-
-
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "albumCell", for: indexPath) as? AlbumTableViewCell else { return UITableViewCell() }
         let album = albums[indexPath.row]
         cell.updateViews(for: album)
         return cell
     }
-  
-
+    
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "toDetailVC",
@@ -54,7 +54,7 @@ class AlbumTableViewController: UITableViewController {
         destination.album = album
     }
     
-
+    
 }
 
 extension AlbumTableViewController: UISearchBarDelegate {

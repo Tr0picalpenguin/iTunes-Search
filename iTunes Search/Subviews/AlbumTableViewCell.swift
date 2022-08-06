@@ -8,7 +8,7 @@
 import UIKit
 
 class AlbumTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var albumImageView: UIImageView!
     
     @IBOutlet weak var albumNameLabel: UILabel!
@@ -20,7 +20,7 @@ class AlbumTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         albumImageView.image = nil
     }
-
+    
     func updateViews(for album: Album) {
         guard let albumImage = album.albumImage else { return }
         NetworkController.fetchAlbumImage(with: albumImage) { result in

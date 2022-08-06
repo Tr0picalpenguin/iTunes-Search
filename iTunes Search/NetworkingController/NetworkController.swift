@@ -31,25 +31,25 @@ struct NetworkController {
             completion(.failure(.invalidURL("Error with Album url")))
             return
         }
-            print(finalURL)
-            
-            URLSession.shared.dataTask(with: finalURL) { data, _, error in
-                if let error = error {
-                    completion(.failure(.thrownError(error)))
-                    print("Encountered Error: \(error.localizedDescription)")
-                }
-                guard let data = data else {
-                    completion(.failure(.noData))
-                    return
-                }
-                do {
-                    let albumData = try JSONDecoder().decode(TopLevelAlbums.self, from: data)
-                    completion(.success(albumData))
-                } catch {
-                    completion(.failure(.thrownError(error)))
-                    return
-                }
-            }.resume()
+        print(finalURL)
+        
+        URLSession.shared.dataTask(with: finalURL) { data, _, error in
+            if let error = error {
+                completion(.failure(.thrownError(error)))
+                print("Encountered Error: \(error.localizedDescription)")
+            }
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            do {
+                let albumData = try JSONDecoder().decode(TopLevelAlbums.self, from: data)
+                completion(.success(albumData))
+            } catch {
+                completion(.failure(.thrownError(error)))
+                return
+            }
+        }.resume()
     }
     
     // MARK: - URL to fetch the tracks - Endpoint 2
@@ -89,7 +89,7 @@ struct NetworkController {
                 completion(.failure(.thrownError(error)))
                 return
             }
-
+            
         }.resume()
     }
     
@@ -108,7 +108,7 @@ struct NetworkController {
             guard let albumImage = UIImage(data: data) else {
                 completion(.failure(.unableToDecode))
                 return
-        }
+            }
             completion(.success(albumImage))
         }.resume()
     }
